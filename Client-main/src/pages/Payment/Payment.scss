@@ -1,0 +1,26 @@
+.payment-container {
+    height: 100vh; 
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    background-image: url(https://th.bing.com/th?id=OIF.vk9l%2bZVJGfOI6XIfjI9NZg&rs=1&pid=ImgDetMain);
+    background-size: cover; 
+}
+
+.paypal {
+    width: 600px;
+}
+
+.payment-container button {
+    margin-top: 50px;
+    border: 1px solid black;
+    padding: 10px 150px 10px 150px;
+    border-radius: 10px;
+    background-color: rgb(26, 54, 60);
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #fff;
+}
