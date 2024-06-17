@@ -72,10 +72,7 @@ const HomePartner = () => {
       <DataContext.Provider value={headerData}>
         <Popular />
       </DataContext.Provider>
-      <PopularTour />
-      <Offers />
-      <About />
-      <Blog />
+
       <Footer />
     </>
   );
