@@ -16,7 +16,7 @@ const Footer = () => {
               <a href="#" className='logo flex'>
                 <h1 className='font-bold text-2xl flex'>
                   <SiYourtraveldottv className='icon'/>
-                  TripGo
+                  Booking Chill
                 </h1>
               </a>
             </div>

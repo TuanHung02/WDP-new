@@ -212,7 +212,8 @@ const ProfileAdminNav = () => {
             <DrawerHeader className="relative">
               <div className="flex justify-center items-center gap-3">
                 <SiYourtraveldottv className="text-orange-400 text-2xl" />
-                <span className="font-bold text-lg">TripGo</span>
+                <span className="font-bold text-lg">                  Booking Chill
+                </span>
               </div>
               <div style={{ position: 'absolute', right: '0.8rem' }}>
                 <IconButton onClick={handleDrawerClose}>

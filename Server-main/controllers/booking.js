@@ -216,7 +216,7 @@ const BookingController = {
                             <tr>
                                 <td style="height:30px;text-align:center;background:#306eb7;padding-top:15px;padding-bottom:15px;color:#fff">
                                     <div style="margin-bottom:5px">
-                                        Hoa Lac, Tro Hoang Ha
+                                        Hoa Lac, Tro An Binh
                                     </div>
                                     <div>
                                         <span>
@@ -226,7 +226,7 @@ const BookingController = {
                                         <span>
                                             Email:
                                         </span>
-                                        <a href="dinhhoan0511@gmail.com" target="_blank">dinhhoan0511@gmail.com</a>
+                                        <a href="buituanhung04122002@gmail.com" target="_blank">buituanhung04122002@gmail.com</a>
                                     </div>
                                     
                                 </td>
@@ -538,7 +538,7 @@ async function cancelBookingTour(req, resp) {
                                         <span>
                                             Email:
                                         </span>
-                                        <a href="dinhhoan0511@gmail.com" target="_blank">dinhhoan0511@gmail.com</a>
+                                        <a href="buituanhung04122002@gmail.com" target="_blank">buituanhung04122002@gmail.com</a>
                                     </div>
                                     
                                 </td>

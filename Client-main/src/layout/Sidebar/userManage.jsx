@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -29,7 +29,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import Avatar from '@mui/material/Avatar';
 import UserList from '../Sidebar/UserManageAdmin/UserTable.jsx';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import { SiYourtraveldottv } from 'react-icons/si';
 import './sidebar.scss';
@@ -46,8 +46,8 @@ const menuItems = [
 
 const menuSetting = [
   { text: 'Profile', link: '/admin/profile' },
-  { text: 'Logout', link: '/login'}
-]
+  { text: 'Logout', link: '/login' },
+];
 
 const drawerWidth = 240;
 
@@ -117,7 +117,6 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const UserManage = () => {
-
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -141,8 +140,8 @@ const UserManage = () => {
     AssessmentIcon,
   ];
 
-    return (
-        <div className='body'>
+  return (
+    <div className="body">
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
@@ -198,7 +197,7 @@ const UserManage = () => {
           <DrawerHeader className="relative">
             <div className="flex justify-center items-center gap-3">
               <SiYourtraveldottv className="text-orange-400 text-2xl" />
-              <span className="font-bold text-lg">TripGo</span>
+              <span className="font-bold text-lg"> Booking Chill</span>
             </div>
             <div style={{ position: 'absolute', right: '0.8rem' }}>
               <IconButton onClick={handleDrawerClose}>
@@ -247,15 +246,19 @@ const UserManage = () => {
           </List>
           <Divider />
           <List>
-          {menuSetting?.map((item, index) => (
-              <ListItem key={item.text} disablePadding sx={{ display: 'block' }} onClick={() => navigate(`${item.link}`)}>
+            {menuSetting?.map((item, index) => (
+              <ListItem
+                key={item.text}
+                disablePadding
+                sx={{ display: 'block' }}
+                onClick={() => navigate(`${item.link}`)}
+              >
                 <ListItemButton
                   sx={{
                     minHeight: 48,
                     justifyContent: open ? 'initial' : 'center',
                     px: 2.5,
                   }}
-
                 >
                   <ListItemIcon
                     // onClick={handleLogout}
@@ -267,7 +270,10 @@ const UserManage = () => {
                   >
                     {React.createElement(customIcons[index])}
                   </ListItemIcon>
-                  <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText
+                    primary={item.text}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
                 </ListItemButton>
               </ListItem>
             ))}
@@ -284,15 +290,15 @@ const UserManage = () => {
                 Pages / <span className="text-slate-600">User Manage</span>
               </p>
               <span className="text-2xl font-bold">User Manage</span>
-                <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 1 }}>
-                    <UserList/>
-                </Box>
+              <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 1 }}>
+                <UserList />
+              </Box>
             </Box>
           </div>
         </Box>
       </Box>
     </div>
-    );
-}
+  );
+};
 
 export default UserManage;

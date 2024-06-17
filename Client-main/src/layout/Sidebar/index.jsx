@@ -28,7 +28,7 @@ import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Avatar from '@mui/material/Avatar';
 import TourList from '../../pages/Admin/ListTour/ListTour.jsx';
-import UserList from '../../layout/Sidebar/UserManageAdmin/UserTable.jsx'
+import UserList from '../../layout/Sidebar/UserManageAdmin/UserTable.jsx';
 import MonitorChart from '../../pages/Admin/ChartMonitor/MonitorChart.jsx';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
@@ -51,8 +51,8 @@ const menuItems = [
 
 const menuSetting = [
   { text: 'Profile', link: '/admin/profile' },
-  { text: 'Logout', link: '/login' }
-]
+  { text: 'Logout', link: '/login' },
+];
 
 const drawerWidth = 240;
 
@@ -207,7 +207,7 @@ const Index = () => {
           <DrawerHeader className="relative">
             <div className="flex justify-center items-center gap-3">
               <SiYourtraveldottv className="text-orange-400 text-2xl" />
-              <span className="font-bold text-lg">TripGo</span>
+              <span className="font-bold text-lg"> Booking Chill</span>
             </div>
             <div style={{ position: 'absolute', right: '0.8rem' }}>
               <IconButton onClick={handleDrawerClose}>
@@ -257,7 +257,12 @@ const Index = () => {
           <Divider />
           <List>
             {menuSetting?.map((item, index) => (
-              <ListItem key={item.text} disablePadding sx={{ display: 'block' }} onClick={() => navigate(`${item.link}`)}>
+              <ListItem
+                key={item.text}
+                disablePadding
+                sx={{ display: 'block' }}
+                onClick={() => navigate(`${item.link}`)}
+              >
                 <ListItemButton
                   sx={{
                     minHeight: 48,
@@ -275,7 +280,10 @@ const Index = () => {
                   >
                     {React.createElement(customIcons[index])}
                   </ListItemIcon>
-                  <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText
+                    primary={item.text}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
                 </ListItemButton>
               </ListItem>
             ))}
@@ -411,7 +419,9 @@ const Index = () => {
 
                 <section className="text-neutral-700 dark:text-neutral-300">
                   <div className="mx-auto text-center md:max-w-xl lg:max-w-3xl">
-                    <h3 className="mb-6 text-3xl font-bold">Latest Review by Customers</h3>
+                    <h3 className="mb-6 text-3xl font-bold">
+                      Latest Review by Customers
+                    </h3>
                     <p className="mb-6 pb-2 md:mb-12 md:pb-0">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     </p>
@@ -501,7 +511,6 @@ const Index = () => {
                     </div>
                   </div>
                 </section>
-
               </Box>
             </Box>
           </div>

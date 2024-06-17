@@ -1,40 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import './Navbar.scss'
-import { SiYourtraveldottv } from 'react-icons/si'
-import { AiFillCloseCircle } from 'react-icons/ai'
-import { TbGridDots } from 'react-icons/tb'
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import './Navbar.scss';
+import { SiYourtraveldottv } from 'react-icons/si';
+import { AiFillCloseCircle } from 'react-icons/ai';
+import { TbGridDots } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = () => {
-
   const navigate = useNavigate();
 
-  const notify = () => toast("Feature being updated, please come back later!");
+  const notify = () => toast('Feature being updated, please come back later!');
 
   // toggle show navbar
-  const [active, setActive] = useState('navBar')
+  const [active, setActive] = useState('navBar');
 
   const showNav = () => {
-    setActive('navBar activeNavbar')
-  }
+    setActive('navBar activeNavbar');
+  };
 
-  // close navBar 
+  // close navBar
   const closeNav = () => {
-    setActive('navBar')
-  }
+    setActive('navBar');
+  };
 
   // add background color to the header
-  const [transparent, setTransparent] = useState('header')
+  const [transparent, setTransparent] = useState('header');
   const addBg = () => {
     if (window.scrollY >= 10) {
-      setTransparent('header activeHeader')
+      setTransparent('header activeHeader');
+    } else {
+      setTransparent('header');
     }
-    else {
-      setTransparent('header')
-    }
-  }
+  };
   // window.addEventListener('scroll', addBg)
 
   useEffect(() => {
@@ -68,73 +66,70 @@ const Navbar = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  <div className='logoDiv'>
-    <a href="#" className='logo' onClick={() => navigate('/')}>
-      <h1 className='flex font-bold text-xl'><SiYourtraveldottv className='icon' />
-        TripGo
+  <div className="logoDiv">
+    <a href="#" className="logo" onClick={() => navigate('/')}>
+      <h1 className="flex font-bold text-xl">
+        <SiYourtraveldottv className="icon" />
+        Booking Chill
       </h1>
     </a>
-  </div>
+  </div>;
 
   return (
-    <section className='navBarSection'>
+    <section className="navBarSection">
       <div className={transparent}>
-
-        <div className='logoDiv'>
-          <a href="#" className='logo'>
-            <h1 className='flex font-bold text-xl'><SiYourtraveldottv className='icon' />
-              TripGo
+        <div className="logoDiv">
+          <a href="#" className="logo">
+            <h1 className="flex font-bold text-xl">
+              <SiYourtraveldottv className="icon" />
+              Booking Chill
             </h1>
           </a>
         </div>
 
         <div className={active}>
           <ul className="navLists flex">
-
             <li className="navItem">
-              <a href="#" className="navLink" onClick={() => navigate("/")}>Home</a>
+              <a href="#" className="navLink" onClick={() => navigate('/')}>
+                Home
+              </a>
             </li>
 
             <li className="navItem">
-              <a href="#" className="navLink" onClick={() => navigate("/list-tour")}>List Tour</a>
+              <a
+                href="#"
+                className="navLink"
+                onClick={() => navigate('/list-tour')}
+              >
+                List Tour
+              </a>
             </li>
 
-            <li className="navItem">
-              <a href="#" className="navLink" onClick={() => navigate("/gallery")}>Gallery</a>
-            </li>
-
-            <li className="navItem">
-              <a href="#" className="navLink" onClick={() => navigate("/News")}>News</a>
-            </li>
-
-            <li className="navItem">
-              <a href="#" className="navLink" onClick={() => navigate("/about")}>About Us</a>
-            </li>
 
             <div className="headerBtns flex">
-              <button className='btn loginBtn' onClick={() => navigate("/login")}>
+              <button
+                className="btn loginBtn"
+                onClick={() => navigate('/login')}
+              >
                 <a href="#">Login</a>
               </button>
-              <button className='btn' onClick={() => navigate("/register")}>
+              <button className="btn" onClick={() => navigate('/register')}>
                 <a href="#">Sign Up</a>
               </button>
             </div>
-
           </ul>
 
-          <div onClick={closeNav} className='closeNavbar'>
-            <AiFillCloseCircle className='icon' />
+          <div onClick={closeNav} className="closeNavbar">
+            <AiFillCloseCircle className="icon" />
           </div>
-
         </div>
 
         <div onClick={showNav} className="toggleNavbar">
-          <TbGridDots className='icon' />
+          <TbGridDots className="icon" />
         </div>
-
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

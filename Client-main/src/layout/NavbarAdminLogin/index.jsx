@@ -97,7 +97,7 @@ export default function index() {
           <a href="#" className="logo" onClick={() => navigate('/')}>
             <h1 className="flex font-bold text-xl">
               <SiYourtraveldottv className="icon" />
-              TripGo
+              Booking Chill
             </h1>
           </a>
         </div>
@@ -130,31 +130,6 @@ export default function index() {
               </a>
             </li>
 
-            <li className="navItem">
-              <a
-                href="#"
-                className="navLink"
-                onClick={() => navigate('/gallery')}
-              >
-                Gallery
-              </a>
-            </li>
-
-            <li className="navItem">
-              <a href="#" className="navLink" onClick={() => navigate('/News')}>
-                News
-              </a>
-            </li>
-
-            <li className="navItem">
-              <a
-                href="#"
-                className="navLink"
-                onClick={() => navigate('/AboutUs')}
-              >
-                About Us
-              </a>
-            </li>
 
             <div className="headerBtns flex items-center relative pl-4">
               <div className="avatar" onClick={toggleMenu}>

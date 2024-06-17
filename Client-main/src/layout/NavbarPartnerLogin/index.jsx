@@ -133,7 +133,8 @@ const Index = () => {
           <a href="#" className="logo" onClick={() => navigate('/')}>
             <h1 className="flex font-bold text-xl">
               <SiYourtraveldottv className="icon" />
-              TripGo
+              Booking Chill
+
             </h1>
           </a>
         </div>
@@ -166,31 +167,6 @@ const Index = () => {
               </a>
             </li>
 
-            <li className="navItem">
-              <a
-                href="#"
-                className="navLink"
-                onClick={() => navigate('/gallery')}
-              >
-                Gallery
-              </a>
-            </li>
-
-            <li className="navItem">
-              <a href="#" className="navLink" onClick={() => navigate('/News')}>
-                News
-              </a>
-            </li>
-
-            <li className="navItem">
-              <a
-                href="#"
-                className="navLink"
-                onClick={() => navigate('/about')}
-              >
-                About Us
-              </a>
-            </li>
 
             <div className="headerBtns flex items-center relative pl-4">
               <div className="avatar" onClick={toggleMenu}>
