@@ -159,16 +159,22 @@ const tourController = {
                 })
             }
             const tour = await Tour.findById(id)
-            if(tour.start_date > new Date()){
+            if(tour.start_date < new Date()){
                 return resp.status(StatusCode.BAD_REQUEST).json({
                     success : false,
                     error : "Update Failed !"
                 })
             }
+            // Save updated information temporarily
+            // const updatedTour = {
+            //     ...tour._doc,
+            //     ...req.body,
+            // };
             const tourUpdated = await tourRepository.updateTour(req.body,id);
             return resp.status(200).json({
                 success : true,
-                message : "Updated successfully !"
+                message : "Updated successfully !",
+                // updatedTour
             })
         } catch (error) {
             return resp.status(400).json({
@@ -177,6 +183,83 @@ const tourController = {
             });
         }
     },
+    updateNewTour: async (req, resp) => {
+        try {
+            const {
+                tour_name,
+                tour_description,
+                tour_price,
+                tour_img,
+                max_tourist,
+                start_date,
+                end_date,
+                start_position,
+                end_position,
+                duration,
+                tour_transportion,
+                return_tax
+            } = req.body;
+
+            if (!tour_name || !tour_description || !tour_img || !max_tourist || !start_date || !start_position || !end_position || !duration || !tour_transportion) {
+                return resp.status(400).json({
+                    success: false,
+                    error: "Can not set field empty!"
+                });
+            }
+            if (tour_price < 0) {
+                return resp.status(400).json({
+                    success: false,
+                    error: "Can not set Price less than 0!"
+                });
+            }
+            if (max_tourist <= 0) {
+                return resp.status(400).json({
+                    success: false,
+                    error: "max_tourist must be greater than 0!"
+                });
+            }
+            if (!Validator.CheckDate(start_date, new Date())) {
+                return resp.status(400).json({
+                    success: false,
+                    error: "Start Date must be greater than now!"
+                });
+            }
+            if (!Validator.CheckDate(end_date, start_date)) {
+                return resp.status(400).json({
+                    success: false,
+                    error: "End Date must be greater than start date!"
+                });
+            }
+
+            const newTourData = {
+                tour_name,
+                tour_description,
+                tour_price,
+                tour_img,
+                max_tourist,
+                start_date,
+                end_date,
+                start_position,
+                end_position,
+                duration,
+                tour_transportion,
+                return_tax
+            };
+
+            const tourSaved = await tourRepository.createTour(newTourData);
+
+            return resp.status(200).json({
+                success: true,
+                tourSaved
+            });
+        } catch (error) {
+            return resp.status(400).json({
+                success: false,
+                error: error.message
+            });
+        }
+    },
+
     findTourWithStartAndEnd : async (req,resp) => {
        try {
         const {page,pageSize} = req.query;

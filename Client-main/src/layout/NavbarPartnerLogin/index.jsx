@@ -167,6 +167,15 @@ const Index = () => {
               </a>
             </li>
 
+            <li className="navItem">
+              <a
+                href="#"
+                className="navLink"
+                onClick={() => navigate('/manage-order')}
+              >
+                Manage Order
+              </a>
+            </li>
 
             <div className="headerBtns flex items-center relative pl-4">
               <div className="avatar" onClick={toggleMenu}>

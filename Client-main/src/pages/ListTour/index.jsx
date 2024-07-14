@@ -81,7 +81,7 @@ export default function index() {
     // Rest API Booked
     axios.get('http://localhost:8080/api/booking/all')
       .then((response) => {
-        const booked = response.data.tours;
+        const booked = response.data.getAllTourBooked;
         setBooked(booked);
       })
       .catch(error => console.log(error));

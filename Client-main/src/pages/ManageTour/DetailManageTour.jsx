@@ -536,7 +536,7 @@ const DetailManageTour = () => {
                       backgroundColor: 'rgba(255, 255, 255, 0.8',
                     }}
                   >
-                    <Grid item xs={12} sm={6} sx={{ textAlign: 'left' }}>
+                    {/* <Grid item xs={12} sm={6} sx={{ textAlign: 'left' }}>
                       <Typography
                         variant="h5"
                         sx={{
@@ -552,7 +552,7 @@ const DetailManageTour = () => {
                       <Typography variant="body1">
                         Thời gian: {tourItem.Time}
                       </Typography>
-                    </Grid>
+                    </Grid> */}
                   </Grid>
 
                   <Typography

@@ -10,8 +10,11 @@ import Validator from "../validator/validator.js"
 const BookingController = {
     bookTour: async (req, resp) => {
         try {
+            console.log('Request Params:', req.params); // Kiểm tra id
+            console.log('Request Body:', req.body); // Kiểm tra user_id, amount, number_of_people
+            
             const { id } = req.params;
-            const { user_id } = req.body;
+            const { user_id, amount, number_of_people } = req.body;
             const checkUser = await Booking.findOne({
                 tour_id: id,
                 user_id
@@ -45,7 +48,7 @@ const BookingController = {
                     error: "You already booked this tour !"
                 });
             }
-            const book = await BookingRepository.BookTour(id, user_id);
+            const book = await BookingRepository.BookTour(id, user_id, amount, number_of_people);
             const user = await User.findById({
                 _id: user_id
             })
@@ -251,38 +254,23 @@ const BookingController = {
             })
         }
     },
-    payTicketTour: async (req, resp) => {
+    payTicketTour: async (req, res) => {
         try {
-            const { id } = req.params;
-            const { user_id } = req.body;
-            const checkPayStatus = await Booking.findOne({
-                tour_id: id,
-                user_id: user_id
-            });
-            if (!checkPayStatus) {
-                return resp.status(StatusCode.BAD_REQUEST).json({
-                    success: false,
-                    error: "Not Found !"
-                })
-            }
-            const updateBooking = await BookingRepository.payTicketTour(id, user_id);
-            if (!updateBooking.isModified) {
-                return resp.status(StatusCode.BAD_REQUEST).json({
-                    success: false,
-                    message: "Update not success"
-                })
-            }
-            return resp.status(StatusCode.SUCCESS).json({
-                success: false,
-                message: "Update successful !"
-            });
+          const bookingId = req.params.id;
+          const updatedBooking = await Booking.findByIdAndUpdate(
+            bookingId,
+            { isPay: true },
+            { new: true }
+          );
+          if (!updatedBooking) {
+            return res.status(404).json({ success: false, message: 'Booking not found' });
+          }
+          res.json({ success: true, data: updatedBooking });
         } catch (error) {
-            return resp.status(StatusCode.BAD_REQUEST).json({
-                success: false,
-                error: error.message
-            })
+          res.status(500).json({ success: false, error: error.message });
         }
-    },
+      },
+      
     getTotalBookingByTime: async (req, resp) => {
         const { day } = req.query;
 
@@ -291,10 +279,13 @@ const BookingController = {
         })
     },
     getAllTourBooked: async (req, resp) => {
+
+        const getAllTourBooked =  await Booking.find().populate(["tour_id", "user_id"]);
+        
         try {
             return resp.status(StatusCode.SUCCESS).json({
                 success: true,
-                tours: await Booking.find()
+                getAllTourBooked
             })
         } catch (error) {
             return resp.status(StatusCode.BAD_REQUEST).json({

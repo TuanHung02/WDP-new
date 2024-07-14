@@ -1,11 +1,13 @@
 import Booking from "../models/booking.js"
 import Tour from "../models/tour.js";
 const BookingRepository = {
-    BookTour: async (tour_id, user_id) => {
+    BookTour: async (tour_id, user_id,amount, number_of_people) => {
         try {
             const booking = await Booking.create({
                 tour_id,
-                user_id
+                user_id,
+                amount, 
+                number_of_people
             });
             return booking;
         } catch (error) {

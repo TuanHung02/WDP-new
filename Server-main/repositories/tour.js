@@ -74,9 +74,10 @@ const tourRepository = {
             const tour = await Tour.findById(tour_id)
             const dateCurrent = new Date();
             dateCurrent.setHours(0,0,0,0);
-            const dateTour = new Date(tour.start_date);
+            // const dateTour = new Date(tour.start_date);
+            const dateTour = tour.start_date;
             dateTour.setHours(0,0,0,0);
-            if(dateTour <= dateCurrent){
+            if(dateTour >= dateCurrent){
                 const tourUpdated = await Tour.updateOne({ _id: tour_id }, {
                     $set : {
                         start_date : tourInfor.start_date,

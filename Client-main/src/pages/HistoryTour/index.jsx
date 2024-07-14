@@ -283,7 +283,7 @@ const Index = () => {
                     <Button
                       size="md"
                       fullWidth={true}
-                      style={{ boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.4)' }}
+                      style={{boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.4)' }}
                       className="text-slate-500 bg-slate-300 hover:bg-slate-600 hover:text-slate-50"
                       onClick={() =>
                         navigate(`/tour-detail/${tour.tour_id?._id}`)

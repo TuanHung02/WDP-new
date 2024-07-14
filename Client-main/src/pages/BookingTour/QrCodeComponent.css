@@ -1,0 +1,60 @@
+/* src/QrCodeComponent.css */
+.qr-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.qr-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    /* Điều chỉnh độ rộng theo nhu cầu */
+}
+
+.qr-info-left {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.qr-info-right {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.qr-image {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    max-height: 800px;
+    display: block;
+    margin-top: 10px;
+}
+
+h1,
+h2 {
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.amount {
+    font-size: 2rem;
+    color: #d9534f;
+    /* Màu đỏ cho tổng số chi phí */
+    margin-bottom: 20px;
+}
+
+.payment-steps {
+    list-style: decimal;
+    padding-left: 20px;
+}
+
+.payment-steps li {
+    margin-bottom: 10px;
+}

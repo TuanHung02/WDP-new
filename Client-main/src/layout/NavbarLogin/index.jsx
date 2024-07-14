@@ -141,7 +141,8 @@ export default function index() {
             <div className="headerBtns flex items-center relative pl-4">
               <div className="avatar" onClick={toggleMenu}>
                 <img
-                  src={user.avatar}
+                  // src={user.avatar}
+                  src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
                   alt="User Avatar"
                   className="rounded-full h-8 w-8 cursor-pointer hover:animate-bounce"
                 />

@@ -77,7 +77,6 @@ const Index = () => {
   const headCells = [
     { id: 'id', label: 'ID Number', filterable: true },
     { id: 'Name', label: 'Name', filterable: false },
-    { id: 'description', label: 'Description', filterable: false },
     { id: 'Price', label: 'Price', filterable: false },
     { id: 'Discount', label: ' Discount', filterable: false },
     { id: 'Max Tourist', label: 'Max Tourist', filterable: false },
@@ -306,9 +305,9 @@ const Index = () => {
                                       {index + 1}
                                     </TableCell>
                                     <TableCell>{tour?.tour_name}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                       {tour?.tour_description}
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>{tour?.tour_price}$</TableCell>
                                     <TableCell>
                                       {tour?.discount}
@@ -438,9 +437,9 @@ const Index = () => {
                                       {index + 1}
                                     </TableCell>
                                     <TableCell>{tour?.tour_name}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                       {tour?.tour_description}
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>{tour?.tour_price}$</TableCell>
                                     <TableCell>
                                       {tour?.discount}
@@ -570,9 +569,9 @@ const Index = () => {
                                       {index + 1}
                                     </TableCell>
                                     <TableCell>{tour?.tour_name}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                       {tour?.tour_description}
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>{tour?.tour_price}$</TableCell>
                                     <TableCell>{tour?.discount}</TableCell>
                                     <TableCell>{tour?.max_tourist}</TableCell>
@@ -697,9 +696,9 @@ const Index = () => {
                                       {index + 1}
                                     </TableCell>
                                     <TableCell>{tour?.tour_name}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                       {tour?.tour_description}
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>{tour?.tour_price}$</TableCell>
                                     <TableCell>
                                       {tour?.discount}
@@ -763,7 +762,7 @@ const Index = () => {
                                               }}
                                               onClick={() =>
                                                 navigate(
-                                                  `/manage-edit-tour/${tour?._id}`
+                                                  `/manage-edit-new-tour/${tour?._id}`
                                                 )
                                               }
                                             >
@@ -845,9 +844,9 @@ const Index = () => {
                                       {index + 1}
                                     </TableCell>
                                     <TableCell>{tour?.tour_name}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                       {tour?.tour_description}
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>{tour?.tour_price}$</TableCell>
                                     <TableCell>
                                       {tour?.discount}
@@ -977,9 +976,9 @@ const Index = () => {
                                       {index + 1}
                                     </TableCell>
                                     <TableCell>{tour?.tour_name}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                       {tour?.tour_description}
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>{tour?.tour_price}$</TableCell>
                                     <TableCell>
                                       {tour?.discount}
@@ -1109,9 +1108,9 @@ const Index = () => {
                                       {index + 1}
                                     </TableCell>
                                     <TableCell>{tour?.tour_name}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                       {tour?.tour_description}
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>{tour?.tour_price}$</TableCell>
                                     <TableCell>{tour?.discount}</TableCell>
                                     <TableCell>{tour?.max_tourist}</TableCell>
@@ -1236,9 +1235,9 @@ const Index = () => {
                                       {index + 1}
                                     </TableCell>
                                     <TableCell>{tour?.tour_name}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                       {tour?.tour_description}
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>{tour?.tour_price}$</TableCell>
                                     <TableCell>
                                       {tour?.discount}

@@ -14,6 +14,7 @@ tourRouter.get("/owner/:id",tourController.findTourByOwnerId)
 tourRouter.put("/update/:id",tourController.updateTour)
 tourRouter.post("/get-list-search-tour",tourController.findTourWithStartAndEnd)
 
+tourRouter.post("/updateNew",tourController.updateNewTour)
 
 
 

@@ -77,6 +77,8 @@ const BookingTour = () => {
   };
 
   const { id } = useParams();
+  // const [amount, setAmount] = useState(0);
+  // const [numberOfPeople, setNumberOfPeople] = useState(0);
 
   const handleBooking = async (event) => {
     const token = localStorage.getItem('token');
@@ -84,8 +86,16 @@ const BookingTour = () => {
       const decodedToken = jwtDecode(token);
       try {
         const userId = decodedToken.user_id;
+        const totalCost = calculateTotalCost(tourData[0]?.tour_price, numberPeople); 
+
+        localStorage.setItem('totalCost', totalCost);  // Lưu tổng chi phí vào localStorage
+  
+        console.log('totalCost:', totalCost);  // Kiểm tra giá trị totalCost
+        console.log('numberPeople:', numberPeople);  // Kiểm tra giá trị numberPeople
         const response = await axios.post(`http://localhost:8080/api/booking/${id}`, {
-          user_id: userId
+          user_id: userId,
+          amount: totalCost,
+          number_of_people: numberPeople
         }, {
           headers: {
             'Content-Type': 'application/json',
@@ -94,8 +104,9 @@ const BookingTour = () => {
         if (response.status === 200) {
           const responseData = response.data;
           console.log('Booking tour successful:', responseData);
-          toast.success('Booking successful ~')
-          navigate(`/payment/${id}`)
+          toast.success('Booking successful ~');
+          // navigate(`/qr-code`); 
+          navigate(`/payment/${id}`);
         } else {
           console.error('Booking tour failed:', response.status);
           const errorData = response.error;
@@ -104,12 +115,12 @@ const BookingTour = () => {
           navigate('/list-tour');
         }
       } catch (error) {
-        console.error('Booking tour failed');
-        toast.error('You already booked this tour ~ Pay now to complete your tour booking !');
-        navigate(`/payment/${id}`);
+        console.error('Booking tour failed', error);
+        toast.error('You already booked this tour');
+        navigate(`/booking-tour/${id}`);
       }
     } else {
-      toast('You are not logged in ~ Please log in to book a tour !!!')
+      toast('You are not logged in ~ Please log in to book a tour !!!');
       navigate('/login');
     }
   };

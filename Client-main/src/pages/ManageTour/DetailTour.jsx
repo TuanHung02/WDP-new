@@ -361,7 +361,7 @@ const DetailTour = () => {
                         id="start-date"
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required=""
-                        defaultValue={moment(item.start_date).format('YYYY-MM-DD')}
+                        defaultValue={startDate}
                         onChange={(event) => setStartDate(event.target.value)}
                       />
                     </div>
@@ -379,7 +379,8 @@ const DetailTour = () => {
                         id="end-date"
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                         required=""
-                        defaultValue={moment(item?.end_date).format('YYYY-MM-DD')}
+                        // defaultValue={moment(item?.end_date).format('YYYY-MM-DD')}
+                        defaultValue={endDate}
                         onChange={(event) => setEndDate(event.target.value)}
                       />
                     </div>

@@ -16,6 +16,10 @@ import NavbarAdmin from '../layout/NavbarAdminLogin/index.jsx';
 import HomePartner from '../pages/Home/homePartner.jsx';
 import ManageTour from '../pages/ManageTour/index.jsx';
 import ManageTourEdit from '../pages/ManageTour/DetailTour.jsx';
+
+import ManageTourEditNew from '../pages/ManageTour/EditNew.jsx';
+import ManageOrder from '../pages/ManageOrder/ManageOrder.jsx';
+
 import ManageTourDetail from '../pages/ManageTour/DetailManageTour.jsx';
 import CreateTour from '../pages/ManageTour/CreateTour.jsx'
 import CreateSchedule from '../pages/ManageTour/CreateSchedule.jsx';
@@ -23,6 +27,7 @@ import EditSchedule from '../pages/ManageTour/EditSchedule.jsx';
 import ProfileAdmin from '../layout/Sidebar/profileAdminNav.jsx'
 import HistoryTour from '../pages/HistoryTour/index.jsx'
 import ScheduleList from '../pages/ManageTour/ScheduleList.jsx';
+import QrCodeComponent from '../pages/BookingTour/QrCodeComponent.jsx'; // Import component mới
 
 export const routes = [
     {
@@ -108,6 +113,10 @@ export const routes = [
         path: "/history-booking-tour",
         page: HistoryTour
     },
+    {
+       path: '/qr-code',
+        page: QrCodeComponent,
+    },
 ]
 
 export const adminRoutes = [
@@ -161,7 +170,10 @@ export const adminRoutes = [
         path: "/admin/tour-manage",
         page: TourManage
     },
-
+    {
+        path: '/qr-code',
+         page: QrCodeComponent,
+     },
 ];
 
 export const RoutesPartner = [
@@ -212,6 +224,10 @@ export const RoutesPartner = [
         page: ManageTourEdit
     },
     {
+        path: "/manage-edit-new-tour/:id",
+        page: ManageTourEditNew
+    },
+    {
         path: "/profile",
         page: Profile
     },
@@ -255,7 +271,16 @@ export const RoutesPartner = [
     {
         path: "/edit-schedule/:id",
         page: EditSchedule,
-    }
+    },
+    {
+        path: '/qr-code',
+         page: QrCodeComponent,
+     },
+     {
+        path: '/manage-order',
+         page: ManageOrder,
+     },
+     
 ]
 
 
