@@ -203,13 +203,13 @@ const Index = () => {
                         Partner
                       </span>
                     </div>
-                    <li
+                    {/* <li
                       className="menu-item flex items-center hover:underline hover:cursor-pointer hover:text-orange-400"
                       onClick={notify}
                     >
                       <AiOutlineSetting className="menu-icon" />
                       <span className="ml-4">Settings</span>
-                    </li>
+                    </li> */}
                     <div
                       className="mt-2 mb-2"
                       style={{

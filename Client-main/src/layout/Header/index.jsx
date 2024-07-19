@@ -77,11 +77,11 @@ const Header = ({ dataSearch }) => {
 
         <div className="homeText">
           <h1 data-aos="fade-up" className="title font-bold text-2xl">
-            Plan Your Trip With Travel Dot
+            Plan Your Trip With Booking chill
           </h1>
 
           <p data-aos="fade-up" data-aos-duration="2500" className="subTitle ">
-            Travel to your favourite city with respectful of the enviroment!
+            Travel to your favourite place!
           </p>
 
           <button data-aos="fade-up" data-aos-duration="3000" className="btn">

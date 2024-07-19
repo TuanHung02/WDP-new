@@ -159,7 +159,7 @@ const TableListTourAdmin = () => {
                   <Tab value="1" label="Approved tour" />
                   <Tab value="2" label="Pending tour" />
                   <Tab value="3" label="rejected tour" />
-                  <Tab value="4" label="Overdue tour" />
+                  <Tab value="4" label="Out of date tour" />
                 </TabList>
                 <TabPanel value="1" sx={{ p: 0 }}>
                   <TableContainer>

@@ -165,7 +165,7 @@ const TourManage = () => {
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '2' }}>
-              <div
+              {/* <div
                 className="relative flex items-center w-80 h-9 rounded-lg focus-within:shadow-lg bg-white overflow-hidden"
                 style={{
                   border: '1px solid lightgrey',
@@ -186,7 +186,7 @@ const TourManage = () => {
                 <Badge badgeContent={4} color="error">
                   <NotificationsIcon />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
               <IconButton color="inherit" style={{ fontSize: 'small' }}>
                 <Avatar sx={{ width: 32, height: 32 }}>
                   <img src={avatar} alt="avatar" />

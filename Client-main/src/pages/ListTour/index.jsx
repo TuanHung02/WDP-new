@@ -31,15 +31,15 @@ const listFilter = [
     item3: '$1000 - $2000',
     item4: '$2000+ ',
   },
-  {
-    id: 4,
-    name: 'Star Rating ',
-    item1: '1',
-    item2: '2',
-    item3: '3',
-    item4: '4',
-    item5: '5',
-  }
+  // {
+  //   id: 4,
+  //   name: 'Star Rating ',
+  //   item1: '1',
+  //   item2: '2',
+  //   item3: '3',
+  //   item4: '4',
+  //   item5: '5',  
+  // }
 ];
 
 export default function index() {
@@ -57,7 +57,7 @@ export default function index() {
   const [tours, setTours] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState([]);
   const [bookingId, setBookingId] = useState([]);
-  const [selectedPriceFilter, setSelectedPriceFilter] = useState(null);
+  const [selectedPriceFilter, setSelectedPriceFilter] = useState([]);
   const [hasFilteredTours, setHasFilteredTours] = useState(true);
   const [booked, setBooked] = useState([]);
   const [user, setUser] = useState([])
@@ -73,8 +73,9 @@ export default function index() {
     axios.get('http://localhost:8080/api/tour/find-all')
       .then((response) => {
         const tourData = response.data.tours;
-        setTours(tourData);
-        setHasFilteredTours(tourData.length > 0);
+        const approvedTours = tourData.filter(tour => tour.isAppove === 'APPROVE' &&  tour.start_date >= new Date().toISOString() );
+        setTours(approvedTours);
+        setHasFilteredTours(approvedTours.length > 0);
       })
       .catch(error => console.log(error));
 
@@ -114,8 +115,19 @@ export default function index() {
   }
 
   const handlePriceFilter = (price) => {
-    setSelectedPriceFilter(price);
+    let priceFilter;
+    if (price === listFilter[0].item1) {
+      setSelectedPriceFilter(tours.filter((tour) => tour?.isAppove === "APPROVE" && tour.tour_price < 500 && tour.start_date >= new Date().toISOString()));
+    } else if (price === listFilter[0].item2) {
+      setSelectedPriceFilter (tours.filter((tour) => tour?.isAppove === "APPROVE" && tour.tour_price >= 500 && tour.tour_price <= 1000 && tour.start_date>= new Date().toISOString()));
+    } else if (price === listFilter[0].item3) {
+      setSelectedPriceFilter (tours.filter((tour) => tour?.isAppove === "APPROVE" && tour.tour_price >= 1000 && tour.tour_price <= 2000 && tour.start_date >= new Date().toISOString()));
+    } else if (price === listFilter[0].item4) {
+      setSelectedPriceFilter( tours.filter((tour) => tour?.isAppove === "APPROVE" && tour.tour_price > 2000 && tour.start_date >= new Date().toISOString()));
+    }
+    // setSelectedPriceFilter(priceFilter);
     setIsOpen(true);
+    setStatus(false)
   };
 
   const isTourBooked = (tourId) => {
@@ -181,8 +193,8 @@ export default function index() {
     try {
       const response = await axios.get(`http://localhost:8080/api/tour/search?page=1&pageSize=10&query=${searchTour}`);
       const searchedTour = response.data.tours;
-      setSearchTour(searchedTour);
-      setStatus(false)
+      setTours(searchedTour);
+      // setStatus(false)
       toast.success('Wait a few seconds ~')
     } catch (error) {
       const errorData = error.response.data.error;
@@ -191,6 +203,11 @@ export default function index() {
       toast.error(errorData)
     }
   };
+
+  // const handleSubmit = (e) => {
+  //   const listSearchTour = tours.filter(tour => tour.tour_name.toLowerCase().includes(searchTour.toLowerCase()));
+  //   setTours(listSearchTour);
+  // };
 
   useEffect(() => {
     console.log(searchTour);
@@ -363,220 +380,96 @@ export default function index() {
 
       <hr className="container mt-[4rem]" />
 
-      {status ? (
+      
+      {status === true ? (
         <section className="mt-[4rem] container">
-          <div className="flex flex-wrap md:justify-between gap-10 px-6 xl:px-0 py-8 lg:px-3">
-            {applyPriceFilter(tours).length > 0 ? (
-              applyPriceFilter(tours).map((list) => (
-                <figure className="w-full md:w-[45%] xl:w-[30%] h-[450px] relative photo transition-all duration-1000">
-                  <div className="w-[100%] h-[100%] bottom-photo absolute bg-color7 flex flex-col justify-center px-5">
-                    <p className="text-2xl text-center uppercase font-bold font-sans text-color3 font-secondary">
-                      {list.tour_name}
-                    </p>
-                    <p className="text-color1 mb-4" style={{ paddingTop: "10px" }}>{list.tour_price}$</p>
-                    <p className="text-color6">{list.tour_description}</p>
-                    <div className="flex my-4 gap-4">
-                      <div className="w-[100%] flex">
-                        <i className="bi bi-clock text-color4"></i>
-                        <p className="text-color6 ms-2">Time: {list.duration}h</p>
-                      </div>
-                      <div className="w-[100%] flex">
-                        <i className="bi bi-geo-alt text-color4"></i>
-                        <p className="text-color6 ms-2">{list.start_position?.location_name}</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-5 mt-6">
-                      <button className="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                        onClick={() => handleClickUser(list._id)}
-                      >
-                        <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                          Tour Details
-                        </span>
-                      </button>
+          <div className="flex flex-wrap  gap-10 px-6 xl:px-0 py-8 lg:px-3">
+          {tours.map( (tour) => (
+            <Card key={tour._id} style={{ width: '26rem'}}>
+            <div>
+              <img  src={tour.tour_img[0]} style={{ height: '300px'}}/>
+              <div style={{padding: '10px'}}>
+                <h1 style={{
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  width: '100%',
+                  font: '20px sans-serif'
+                }}>
+                  <strong>{tour.tour_name}</strong>
+               </h1>
 
-                      {isTourBooked(list._id) ? (
-                        getBookedTour(list._id)?.isPay ? ("") : (<button className="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                          onClick={() => handlePay(list._id)}>
-                          <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            Pay Now
-                          </span>
-                        </button>)
-                      ) : (
-                        <button className="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                          onClick={() => handleBooking(list._id)}>
-                          <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            Booking Now
-                          </span>
-                        </button>
-                      )}
-
-                    </div>
-                  </div>
-                  <img
-                    src={list.tour_img}
-                    alt={list.end_position.location_name}
-                    className="w-[100%] h-[100%] object-cover brightness-75 absolute"
-                  />
-                  <p className="absolute uppercase text-white bg-color3 px-4 py-1 right-1 top-12 rotate-[-90deg] ">
-                    {list.start_position?.location_name}
-                  </p>
-                  <figcaption className="absolute text-white bottom-8 right-10 fig">
-                    <p className="uppercase font-bold font-sans text-3xl text-center text-slate-100" style={{ paddingLeft: "20px", paddingBottom: "90px" }}>
-                      {list.tour_name}
-                    </p>
-                    <p className="text-right">{list.tour_price} $ / person</p>
-                  </figcaption>
-                </figure>
-              ))
-            ) : (
-              <h1 style={{ color: "gray", fontSize: "25px", fontStyle: "italic" }}>No tour has found ~</h1>
-            )}
-
-          </div>
-        </section >
-      ) : (
-        <section className="mt-[4rem] container">
-          <div className="flex flex-wrap md:justify-between gap-10 px-6 xl:px-0 py-8 lg:px-3">
-            {Array.isArray(searchTour) ? (
-              applyPriceFilter(searchTour).map((list) => (
-                <figure className="w-full md:w-[45%] xl:w-[30%] h-[450px] relative photo transition-all duration-1000">
-                  <div className="w-[100%] h-[100%] bottom-photo absolute bg-color7 flex flex-col justify-center px-5">
-                    <p className="text-2xl text-center uppercase font-bold font-sans text-color3 font-secondary">
-                      {list.tour_name}
-                    </p>
-                    <p className="text-color1 mb-4" style={{ paddingTop: "10px" }}>{list.tour_price}$</p>
-                    <p className="text-color6">{list.tour_description}</p>
-                    <div className="flex my-4 gap-4">
-                      <div className="w-[100%] flex">
-                        <i className="bi bi-clock text-color4"></i>
-                        <p className="text-color6 ms-2">Time: {list.duration}h</p>
-                      </div>
-                      <div className="w-[100%] flex">
-                        <i className="bi bi-geo-alt text-color4"></i>
-                        <p className="text-color6 ms-2">{list.start_position?.location_name}</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-5 mt-6">
-                      <button className="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                        onClick={() => handleClickUser(list._id)}
-                      >
-                        <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                          Tour Details
-                        </span>
-                      </button>
-
-                      {isTourBooked(list._id) ? (
-                        getBookedTour(list._id)?.isPay ? ("") : (<button className="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                          onClick={() => handlePay(list._id)}>
-                          <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            Pay Now
-                          </span>
-                        </button>)
-                      ) : (
-                        <button className="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                          onClick={() => handleBooking(list._id)}>
-                          <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            Booking Now
-                          </span>
-                        </button>
-                      )}
-
-                    </div>
-                  </div>
-                  <img
-                    src={list.tour_img}
-                    alt={list.end_position.location_name}
-                    className="w-[100%] h-[100%] object-cover brightness-75 absolute"
-                  />
-                  <p className="absolute uppercase text-white bg-color3 px-4 py-1 right-1 top-12 rotate-[-90deg] ">
-                    {list.start_position?.location_name}
-                  </p>
-                  <figcaption className="absolute text-white bottom-8 right-10 fig">
-                    <p className="uppercase font-bold font-sans text-3xl text-center text-slate-100" style={{ paddingLeft: "20px", paddingBottom: "90px" }}>
-                      {list.tour_name}
-                    </p>
-                    <p className="text-right">{list.tour_price} $ / person</p>
-                  </figcaption>
-                </figure>
-              ))
-            ) : (
-              <section className="mt-[4rem] container">
-                <div className="flex flex-wrap md:justify-between gap-10 px-6 xl:px-0 py-8 lg:px-3">
-                  {applyPriceFilter(tours).length > 0 ? (
-                    applyPriceFilter(tours).map((list) => (
-                      <figure className="w-full md:w-[45%] xl:w-[30%] h-[450px] relative photo transition-all duration-1000">
-                        <div className="w-[100%] h-[100%] bottom-photo absolute bg-color7 flex flex-col justify-center px-5">
-                          <p className="text-2xl text-center uppercase font-bold font-sans text-color3 font-secondary">
-                            {list.tour_name}
-                          </p>
-                          <p className="text-color1 mb-4" style={{ paddingTop: "10px" }}>{list.tour_price}$</p>
-                          <p className="text-color6">{list.tour_description}</p>
-                          <div className="flex my-4 gap-4">
-                            <div className="w-[100%] flex">
-                              <i className="bi bi-clock text-color4"></i>
-                              <p className="text-color6 ms-2">Time: {list.duration}h</p>
-                            </div>
-                            <div className="w-[100%] flex">
-                              <i className="bi bi-geo-alt text-color4"></i>
-                              <p className="text-color6 ms-2">{list.start_position?.location_name}</p>
-                            </div>
-                          </div>
-                          <div className="flex gap-5 mt-6">
-                            <button className="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                              onClick={() => handleClickUser(list._id)}
-                            >
-                              <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                Tour Details
-                              </span>
-                            </button>
-
-                            {isTourBooked(list._id) ? (
-                              getBookedTour(list._id)?.isPay ? ("") : (<button className="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                                onClick={() => handlePay(list._id)}>
-                                <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                  Pay Now
-                                </span>
-                              </button>)
-                            ) : (
-                              <button className="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                                onClick={() => handleBooking(list._id)}>
-                                <span className="relative px-2 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                  Booking Now
-                                </span>
-                              </button>
-                            )}
-
-                          </div>
-                        </div>
-                        <img
-                          src={list.tour_img}
-                          alt={list.end_position.location_name}
-                          className="w-[100%] h-[100%] object-cover brightness-75 absolute"
-                        />
-                        <p className="absolute uppercase text-white bg-color3 px-4 py-1 right-1 top-12 rotate-[-90deg] ">
-                          {list.start_position?.location_name}
-                        </p>
-                        <figcaption className="absolute text-white bottom-8 right-10 fig">
-                          <p className="uppercase font-bold font-sans text-3xl text-center text-slate-100" style={{ paddingLeft: "20px", paddingBottom: "90px" }}>
-                            {list.tour_name}
-                          </p>
-                          <p className="text-right">{list.tour_price} $ / person</p>
-                        </figcaption>
-                      </figure>
-                    ))
-                  ) : (
-                    <h1 style={{ color: "gray", fontSize: "25px", fontStyle: "italic" }}>No tour has found ~</h1>
-                  )}
-
+                <h3>Start position: <b>{tour.start_position?.location_name}</b></h3>
+                <h3>Time: <b>{tour.duration} days {tour.duration -1 } night</b></h3>
+                <h3>Price: <b>{tour.tour_price}$</b></h3>
+                <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+                <button   
+                style={{marginTop: '10px', marginBottom: '5px', color: 'white'}} 
+                className="btn btn-primary" 
+                onClick={() => handleClickUser(tour._id)}
+                >
+                Detail
+                </button>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={() => handleBooking(tour._id)}
+                  style={{marginTop: '10px', marginBottom: '5px', color: 'white'}}
+                >
+                  Book now
+                </button>
                 </div>
-              </section >
-            )}
+              </div>
+              </div>
+            </Card>
+          ))}
           </div>
-        </section >
+        </section>
+      ):( 
+         <section className="mt-[4rem] container">
+          <div className="flex flex-wrap  gap-10 px-6 xl:px-0 py-8 lg:px-3">
+          {selectedPriceFilter.map( (tourP) => (
+            <Card key={tourP._id} style={{ width: '26rem'}}>
+            <div>
+              <img  src={tourP.tour_img[0]} style={{ height: '300px'}}/>
+              <div style={{padding: '10px'}}>
+                <h1 style={{
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  width: '100%'
+                }}>
+                  <strong>{tourP.tour_name}</strong>
+               </h1>
+
+                <h3>Start position: <b>{tourP.start_position?.location_name}</b></h3>
+                <h3>Time: <b>{tourP.duration} days {tourP.duration -1 } night</b></h3>
+                <h3>Price: <b>{tourP.tour_price}$</b></h3>
+                <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+                <button   
+                style={{marginTop: '10px', marginBottom: '5px', color: 'white'}} 
+                className="btn btn-primary" 
+                onClick={() => handleClickUser(tourP._id)}
+                >
+                Detail
+                </button>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={() => handleBooking(tourP._id)}
+                  style={{marginTop: '10px', marginBottom: '5px', color: 'white'}}
+                >
+                  Book now
+                </button>
+                </div>
+              </div>
+              </div>
+            </Card>
+          ))}
+          </div>
+        </section>
       )}
 
       {/* Paging  */}
-      <div class="flex items-center justify-center py-10 lg:px-0 sm:px-6 px-4">
+      {/* <div class="flex items-center justify-center py-10 lg:px-0 sm:px-6 px-4">
         <div class="lg:w-3/5 w-full  flex items-center justify-between border-t border-gray-200">
           <div class="flex items-center pt-3 text-gray-600 hover:text-orange-400 cursor-pointer">
             <svg
@@ -669,7 +562,7 @@ export default function index() {
             </svg>
           </div>
         </div >
-      </div>
+      </div> */}
 
       <div className="text-gray-400 text-sm flex justify-center mb-[6rem]">
         <span className="mr-1 font-bold">1</span> -

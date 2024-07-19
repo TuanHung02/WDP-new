@@ -94,7 +94,7 @@ export default function index() {
     <section className="navBarSection">
       <div className={transparent}>
         <div className="logoDiv">
-          <a href="#" className="logo" onClick={() => navigate('/')}>
+          <a href="/" className="logo" onClick={() => navigate('/')}>
             <h1 className="flex font-bold text-xl">
               <SiYourtraveldottv className="icon" />
               Booking Chill

@@ -64,10 +64,16 @@ export default function Popular() {
       .then((response) => {
         const tourData = response.data.tours;
         const list = [];
-        for (let i = 0; i < 4; i++) {
-          list.push(tourData[i])
+        // for (let i = 0; i < 4; i++) {
+        //   list.push(tourData[i])
+        // }
+        const approvedTours = tourData.filter(tour => tour.isAppove === 'APPROVE' &&  tour.start_date >= new Date().toISOString() );
+        for (let i = 0; i < 8; i++) {
+          list.push(approvedTours[i])
         }
         setTours(list);
+
+        // setTours(list);
       })
       .catch(error => console.log(error));
   }, []);
@@ -108,16 +114,17 @@ export default function Popular() {
                   <div className="destImage">
                     <img src={tour.tour_img} alt="Image title" />
                     <div className="overlayInfo">
-                      <h3 className="font-bold text-lg">{tour.tour_description}</h3>
-                      <p>{tour.start_position?.location_name}</p>
+                      <h3 className="font-bold text-lg">{tour.tour_name}</h3>
+                      <p>{tour.end_position?.location_name}</p>
                       <BsArrowRightShort className="icon" onClick={() => handleClickTour(tour._id)} />
                     </div>
                   </div>
 
                   <div className="destFood">
-                    <div className="number font-sans">{tour.end_position[0]?.location_name}</div>
+                    <div className="number">{tour.start_position?.location_name} - {tour.end_position[0]?.location_name}</div>
                     <div className="destText flex">
-                      <span>{tour.tour_name}</span>
+                    <h6>{ }</h6>
+                      {/* <span>{tour.tour_name}</span> */}
                       <span className="flex">
                         <span className="dot">
                           <BsDot className="icon" />
@@ -167,7 +174,7 @@ export default function Popular() {
                   </div>
 
                   <div className="destFood">
-                    <div className="number">{list.start_position?.location_name}</div>
+                    <div className="number">{list.start_position?.location_name} - {list.end_position[0]?.location_name}</div>
 
                     <div className="destText flex">
                       <h6>{ }</h6>

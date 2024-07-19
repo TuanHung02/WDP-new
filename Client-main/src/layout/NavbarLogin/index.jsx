@@ -156,10 +156,10 @@ export default function index() {
                     >
                       <span className='flex justify-center text-center font-medium'>User</span>
                     </div>
-                    <li className="menu-item flex items-center hover:underline hover:cursor-pointer hover:text-orange-400" onClick={notify}>
+                    {/* <li className="menu-item flex items-center hover:underline hover:cursor-pointer hover:text-orange-400" onClick={notify}>
                       <AiOutlineSetting className="menu-icon" />
                       <span className="ml-4">Settings</span>
-                    </li>
+                    </li> */}
                     <div className='mt-2 mb-2' style={{ border: '1px solid lightgrey', boxShadow: '2px 4px 4px rgba(0, 0, 0, 0.2)' }}></div>
                     <li className="menu-item flex items-center hover:underline hover:cursor-pointer hover:text-orange-400" onClick={() => navigate("/profile")}>
                       <AiOutlineUser className="menu-icon" />

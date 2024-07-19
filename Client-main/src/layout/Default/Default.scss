@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -9,9 +9,9 @@
 }
 
 /* Colors */
-:root{
-    --PrimaryColor: hsl(26, 93%, 50%);
-    --HoverColor: hsl(26, 90%, 42%);
+:root {
+    --PrimaryColor: hsl(210, 100%, 50%);
+    --HoverColor: hsl(210, 100%, 50%);
     --WhiteColor: hsl(0, 0%, 100%);
     --blackColor: hsl(0, 0%, 18%);
     --textColor: hsl(240, 1%, 48%);
@@ -21,39 +21,39 @@
     --inputColor: hsl(330, 12%, 97%);
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-li{
+li {
     list-style: none;
 }
 
-.section{
+.section {
     padding: 4rem 0 2rem;
 }
 
-.container{
+.container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
 
-.icon{
+.icon {
     font-size: 2rem;
     cursor: pointer;
 }
 
-.flex{
+.flex {
     display: flex;
     align-items: center;
 }
 
-.grid{
+.grid {
     display: grid;
     align-items: center;
 }
 
-.btn{
+.btn {
     padding: .4rem 1.5rem;
     background: var(--PrimaryColor);
     border: none;
@@ -62,107 +62,105 @@ li{
     cursor: pointer;
 }
 
-.btn a{
+.btn a {
     color: var(--WhiteColor);
     font-weight: 500;
 }
 
-.btn:hover{
+.btn:hover {
     background: var(--HoverColor);
 }
 
-.btn:hover a{
+.btn:hover a {
     color: var(--WhiteColor);
 }
 
-.secIntro{
+.secIntro {
     max-width: 70%;
     text-align: center;
     margin: 0 auto 2rem;
 }
 
-.secIntro .secTitle{
+.secIntro .secTitle {
     color: var(--blackColor);
     line-height: 1.5rem;
     padding-bottom: .5rem;
 }
 
-.secIntro p{
+.secIntro p {
     font-size: 13px;
     color: var(--textColor);
     font-weight: 500;
 }
 
-img, video{
+img,
+video {
     width: 100%;
     height: auto;
 }
 
-input{
+input {
     font-size: 100%;
 }
 
 @media screen and (min-width: 556px) {
-    .mainContent, .singlePost{
+
+    .mainContent,
+    .singlePost {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media screen and (min-width: 884px) {
-    .mainContent{
+    .mainContent {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media screen and (min-width: 1240px) {
-    .container{
+    .container {
         width: 75% !important;
         margin: auto !important;
     }
 
-    .section{
+    .section {
         padding: 5rem 0 .3rem;
     }
 
-    .secIntro{
+    .secIntro {
         margin: 0 auto 3rem;
     }
 
-    .secIntro .secTitle{
+    .secIntro .secTitle {
         line-height: 2rem;
         padding-bottom: 1rem;
         font-size: 2.2rem;
     }
 
-    .secIntro{
+    .secIntro {
         font-size: 15px;
     }
 }
 
-@media screen and (min-width: 2560px){
-    body{
+@media screen and (min-width: 2560px) {
+    body {
         zoom: 1.7;
     }
 }
 
 /* Page Design */
-::selection{
+::selection {
     background: var(--PrimaryColor);
     color: var(--WhiteColor);
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 10px;
     background: var(--greyBg);
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     background: var(--PrimaryColor);
     border-radius: 10px;
     cursor: pointer;
 }
-
-
-
-
-
