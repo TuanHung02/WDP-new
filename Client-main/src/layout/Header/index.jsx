@@ -47,9 +47,14 @@ const Header = ({ dataSearch }) => {
 
       if (response.status === 200) {
         const responseData = await response.data.tours.tours[0];
-        console.log('Search successful:', responseData);
+
+
         setSearchData(responseData);
         dataSearch(responseData);
+        console.log('Search successful:', responseData);
+        console.log( searchData);
+        console.log( dataSearch);
+
         toast.success('Please wait few secondes...')
         // navigate('/');
       } else {

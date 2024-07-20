@@ -19,6 +19,7 @@ import {
   TimelineSeparator,
   timelineItemClasses,
 } from '@mui/lab';
+
 import Navbar from '../../layout/Navbar';
 import NavbarLogin from '../../layout/NavbarLogin/index';
 import img from '../../images/image_hotel(1).jpg';
@@ -42,6 +43,36 @@ import 'react-toastify/dist/ReactToastify.css';
 import NavbarPartnerLogin from '../../layout/NavbarPartnerLogin/index.jsx';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
+
+const spanStyle = {
+  padding: '20px',
+  background: '#efefef',
+  color: '#000000'
+}
+
+const divStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundSize: 'cover',
+  height: '400px'
+}
+const slideImages = [
+  {
+    url: 'https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+    caption: 'Slide 1'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80',
+    caption: 'Slide 2'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+    caption: 'Slide 3'
+  },
+];
 
 const tour = [
   {
@@ -194,8 +225,9 @@ export default function index() {
     axios
       .get(`http://localhost:8080/api/tour/${id}`)
       .then((response) => {
-        const tours = response.data.tour.tour;
+        const tours = Object.values(response.data.tour);
         setTourData(tours);
+        // setTourData(tours);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -260,12 +292,12 @@ export default function index() {
   useEffect(() => {
     const cDate = async () => {
       try {
-        const startDate = moment(tourData?.start_date);
-        const endDate = moment(tourData?.end_date);
+        const startDate = moment(tourData[0]?.start_date);
+        const endDate = moment(tourData[0]?.end_date);
         const timeDiff = endDate.diff(startDate, 'milliseconds');
         const totalDays = Math.ceil(moment.duration(timeDiff).asDays());
         const totalNights = totalDays - 1;
-        const calDate = `${totalDays} ngày ${totalNights} đêm`;
+        const calDate = `${totalDays} Days ${totalNights} Night`;
         setCaculateDate(calDate);
       } catch (error) {
         console.log(error);
@@ -307,20 +339,15 @@ export default function index() {
       ) : (
         <Navbar />
       )}
-      <Paper sx={styles.paperContainer}>
-        <div style={{ padding: '2rem' }} className="flex-column">
-          <Typography
-            variant="h4"
-            sx={{ color: 'whitesmoke', mt: 2 }}
-            style={{
-              fontWeight: 'bold',
-              fontStyle: 'italic',
-            }}
-          >
-            {tourData.tour_name}
-          </Typography>
+      <section className="home">
+      <div className="secContainer container">
+        <div className="homeText">
+          <h1 data-aos="fade-up" className="title font-bold text-2xl">
+            {tourData[0]?.tour_name}
+          </h1>
         </div>
-      </Paper>
+      </div>
+    </section>
       <Container
         style={{ padding: '2px', marginTop: '20px', marginBottom: '20px' }}
       >
@@ -346,10 +373,10 @@ export default function index() {
                       color: '#333',
                     }}
                   >
-                    Schedule of tour '{tourData?.tour_name}'
+                    {tourData[0]?.tour_description}
                   </Typography>
                   <Typography variant="body1">
-                    Thời gian: {calculateDate}
+                    Time: {calculateDate}
                   </Typography>
                 </Grid>
 
@@ -365,7 +392,7 @@ export default function index() {
                         color: '#fa4807',
                       }}
                     >
-                      {tourData?.tour_price} $ / person
+                      {tourData[0]?.tour_price} $ / person
                     </Typography>
                     <Button
                       style={{
@@ -378,7 +405,7 @@ export default function index() {
                         height: 48,
                         padding: '0 30px',
                       }}
-                      onClick={() => handleBooking(tourData?._id)}
+                      onClick={() => handleBooking(tourData[0]?._id)}
                     >
                       Booking now
                     </Button>
@@ -386,7 +413,7 @@ export default function index() {
                 )}
               </Grid>
 
-              <Typography
+              {/* <Typography
                 variant="h5"
                 sx={{
                   marginBottom: '8px',
@@ -400,9 +427,9 @@ export default function index() {
                 }}
               >
                 Detail Schedule
-              </Typography>
+              </Typography> */}
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={5} sx={{ textAlign: 'left' }}>
+                {/* <Grid item xs={12} sm={5} sx={{ textAlign: 'left' }}>
                   <Card elevation={3}>
                     <CardContent>
                       <Timeline
@@ -515,8 +542,38 @@ export default function index() {
                       ))}
                     </ImageList>
                   </Box>
+                </Grid> */}
+                <Grid item xs={12} sm={8}>
+                  <Card>
+                  <div className="slide-container">
+                  <img src={tourData[0]?.tour_img}></img>
+                </div>
+                  </Card>
                 </Grid>
-                <Grid item xs={12} sm={7} sx={{ textAlign: 'left' }}>
+                <Grid item xs={12} sm={4} >
+                  <Card style={{width: '100%'}} >
+                  <div  className="tour-info panel hidden-xs">
+
+                    <div style={{border:'1px solid blue',borderRadius:'5px', padding: '10px', color:'white', background:'hsl(210, 100%, 50%)'}}  className="panel-heading">TOUR INFORMATION</div>
+
+                    <div style={{padding: '10px'}} className="panel-body">
+                    <p>Tour ID: <strong>{tourData[0]?._id}</strong></p>
+                    <p>Max tourist: <strong>{tourData[0]?.max_tourist}</strong></p>
+                    <p>Transportion: <strong>{tourData[0]?.tour_transportion[0]?.transportion_name}</strong></p>
+                    <p><span>Start position: <strong>{tourData[0]?.start_position?.location_name}</strong></span> </p>
+                    <p><span>End position: <strong>{tourData[0]?.end_position[0]?.location_name}</strong></span> </p>
+                    <p><span>Start date: <strong>{moment(tourData[0]?.start_date).format("DD/MM/YYYY")}</strong></span> </p>
+                    </div> 
+
+                    <div style={{padding: '10px'}} className="panel-footer">
+                    <a href="tel:1900 6668">
+                    <i className="fa fa-phone"></i>Contact: 0976055102</a>
+                    </div>
+
+                  </div>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} sm={12}>
                   <Card>
                     <CardContent>
                       {schedule.map((data, index) => (

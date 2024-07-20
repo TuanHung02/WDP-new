@@ -68,39 +68,45 @@ const TableListTourAdmin = () => {
 
   const currentDate = new Date().toISOString();
   const [status, setStatus] = useState(true)
-  const [searchTour, setSearchTour] = useState([])
+  const [searchedTourName, setSearchTourName] = useState([])
 
   useEffect(() => {
     axios
       .get('http://localhost:8080/api/tour/find-all')
       .then((response) => {
         const tourData = response.data.tours;
-        setTours(tourData);
+
+        if(searchedTourName == ''){
+          setTours(tourData);
+        }else{
+          setTours(tourData.filter(u => u.tour_name.toLowerCase().includes(searchedTourName.toLowerCase())));
+        }
+
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [searchedTourName]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      const response = await axios.get(`http://localhost:8080/api/tour/search?page=1&pageSize=10&query=${searchTour}`);
-      const searchedTour = response.data.tours;
-      setSearchTour(searchedTour);
-      setStatus(false)
-      console.log(searchedTour);
-      toast.success('Wait a few seconds ~')
-    } catch (error) {
-      const errorData = error.response.data.error;
-      console.log(errorData);
-      setStatus(true)
-      toast.error(errorData)
-    }
-  };
+  //   try {
+  //     const response = await axios.get(`http://localhost:8080/api/tour/search?page=1&pageSize=10&query=${searchTour}`);
+  //     const searchedTour = response.data.tours;
+  //     setSearchTour(searchedTour);
+  //     setStatus(false)
+  //     console.log(searchedTour);
+  //     toast.success('Wait a few seconds ~')
+  //   } catch (error) {
+  //     const errorData = error.response.data.error;
+  //     console.log(errorData);
+  //     setStatus(true)
+  //     toast.error(errorData)
+  //   }
+  // };
 
-  useEffect(() => {
-    console.log(searchTour);
-  }, [searchTour]);
+  // useEffect(() => {
+  //   console.log(searchTour);
+  // }, [searchTour]);
 
   return (
     <Grid container>
@@ -112,19 +118,14 @@ const TableListTourAdmin = () => {
             titleTypographyProps={{ variant: 'h6', color: 'primary' }}
           />
 
-          <Box sx={{
-            marginTop: '20px',
-            marginBottom: '10px',
-            gap: '3',
-          }}>
-            <form onSubmit={handleSubmit}>
-              <div
+                <div
                 className="relative flex items-center w-80 h-9 rounded-lg focus-within:shadow-lg bg-white overflow-hidden"
                 style={{
                   border: '1px solid lightgrey',
                   boxShadow: '0px 1px 1px 1px rgba(0, 0, 0, 0.1)',
                   height: '60px',
-                  borderRadius: '100px'
+                  borderRadius: '100px',
+                  margin:'10px'
                 }}
               >
                 <div className="grid place-items-center h-full w-12 text-gray-300">
@@ -134,18 +135,10 @@ const TableListTourAdmin = () => {
                   className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
                   type="text"
                   id="search"
-                  placeholder="Search tour name.."
-                  onChange={(e) => { setSearchTour(e.target.value) }}
+                  placeholder="Search user name.."
+                  onChange={(e) => setSearchTourName(e.target.value)}
                 />
-                <button
-                  type="submit"
-                  className="btnSearch text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Search
-                </button>
               </div>
-            </form>
-          </Box>
 
           {status ? (
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>

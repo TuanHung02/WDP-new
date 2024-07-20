@@ -21,6 +21,7 @@ import {
   Paper,
   Box,
 } from '@mui/material';
+// import { useLocation } from 'react-router-dom';
 
 const listFilter = [
   {
@@ -43,6 +44,9 @@ const listFilter = [
 ];
 
 export default function index() {
+  // const location = useLocation();
+  // const searchData = location.state?.searchData;
+
   const [isOpen, setIsOpen] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -74,6 +78,10 @@ export default function index() {
       .then((response) => {
         const tourData = response.data.tours;
         const approvedTours = tourData.filter(tour => tour.isAppove === 'APPROVE' &&  tour.start_date >= new Date().toISOString() );
+        // if(searchData){
+        //   setTours(searchData);
+        // }
+        // console.log(searchData);
         setTours(approvedTours);
         setHasFilteredTours(approvedTours.length > 0);
       })
@@ -225,13 +233,15 @@ export default function index() {
       ) : (
         <Navbar />
       )}
-      <section className="w-full bg-boat bg-cover bg-bottom bg-no-repeat h-[50vh] flex justify-center bg-color2 bg-blend-multiply bg-opacity-50">
-        <div className="w-full container flex justify-center items-center flex-col">
-          <p className="text-white font-secondary text-3xl 2xl:text-6xl">
+      <section className="home">
+      <div className="secContainer container">
+        <div className="homeText">
+          <h1 data-aos="fade-up" className="title font-bold text-2xl">
             List Tour
-          </p>
+          </h1>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Filter tour */}
       <section className="mt-[4rem] mb-[1.5rem]">

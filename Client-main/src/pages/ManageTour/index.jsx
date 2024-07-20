@@ -30,7 +30,7 @@ import { STATE_ADMIN_TOUR } from '../utils/components/StateAdmin.jsx';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import SearchIcon from '@mui/icons-material/Search';
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [logPartner, setLogPartner] = useState(false);
@@ -42,6 +42,7 @@ const Index = () => {
   const navigate = useNavigate();
   const [searchTour, setSearchTour] = useState([]);
   const [status, setStatus] = useState(true)
+  const [searchedTourName, setSearchTourName] = useState([])
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -103,14 +104,20 @@ const Index = () => {
       .get('http://localhost:8080/api/tour/find-all')
       .then((response) => {
         const toursData = response.data.tours;
-        setTours(toursData);
+
+        if(searchedTourName == ''){
+          setTours(toursData);
+        }else{
+          setTours(toursData.filter(u => u.tour_name.toLowerCase().includes(searchedTourName.toLowerCase())));
+        }
+
       })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     tourList();
-  }, []);
+  }, [searchedTourName]);
 
   // Get list schedule
   const scheduleList = () => {
@@ -169,13 +176,15 @@ const Index = () => {
       )}
 
       <div>
-        <section className="w-full bg-boat bg-cover bg-bottom bg-no-repeat h-[50vh] flex justify-center bg-color2 bg-blend-multiply bg-opacity-50">
-          <div className="w-full container flex justify-center items-center flex-col">
-            <p className="text-white font-secondary text-3xl 2xl:text-6xl">
-              Manage Tour
-            </p>
-          </div>
-        </section>
+      <section className="home">
+      <div className="secContainer container">
+        <div className="homeText">
+          <h1 data-aos="fade-up" className="title font-bold text-2xl">
+            Manage Tour
+          </h1>
+        </div>
+      </div>
+    </section>
 
         <div className="mt-16">
           <div data-aos="fade-up" data-aos-duration="2500" className="secIntro">
@@ -207,53 +216,27 @@ const Index = () => {
               </Grid>
               <Grid item xs={3} style={{ textAlign: 'right' }}>
                 <div style={{ marginBottom: '1rem', textAlign: 'right' }}>
-                  <form className="max-w-sm" onSubmit={handleSubmit}>
-                    <label
-                      for="default-search"
-                      className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-                    >
-                      Search
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg
-                          className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                          />
-                        </svg>
-                      </div>
-                      <input
-                        style={{
-                          borderRadius: "70px"
-                        }}
-                        type="search"
-                        id="default-search"
-                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Search tour name..."
-                        required
-                        onChange={(e) => { setSearchTour(e.target.value) }}
-                      />
-                      <button
-                        style={{
-                          borderRadius: "70px"
-                        }}
-                        type="submit"
-                        className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
-                        Search
-                      </button>
+                    <div
+                    className="relative flex items-center w-80 h-9 rounded-lg focus-within:shadow-lg bg-white overflow-hidden"
+                    style={{
+                      border: '1px solid lightgrey',
+                      boxShadow: '0px 1px 1px 1px rgba(0, 0, 0, 0.1)',
+                      height: '60px',
+                      borderRadius: '100px',
+                      margin:'10px'
+                    }}
+                  >
+                    <div className="grid place-items-center h-full w-12 text-gray-300">
+                      <SearchIcon />
                     </div>
-                  </form>
+                    <input
+                      className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
+                      type="text"
+                      id="search"
+                      placeholder="Search user name.."
+                      onChange={(e) => setSearchTourName(e.target.value)}
+                    />
+                  </div>
                 </div>
               </Grid>
             </Grid>
@@ -275,7 +258,7 @@ const Index = () => {
                       <Tab value="1" label="Approved tour" />
                       <Tab value="2" label="Pending tour" />
                       <Tab value="3" label="rejected tour" />
-                      <Tab value="4" label="Overdue tour" />
+                      <Tab value="4" label="Out of Date tour" />
                     </TabList>
                     <TabPanel value="1" sx={{ p: 0 }}>
                       <TableContainer>

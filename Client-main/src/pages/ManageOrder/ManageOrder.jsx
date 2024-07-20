@@ -31,7 +31,8 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './manageOrder.scss'; // Import the SCSS file
-
+import { BsAlignCenter } from 'react-icons/bs';
+import SearchIcon from '@mui/icons-material/Search';
 const ManageOrder = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [logPartner, setLogPartner] = useState(false);
@@ -43,6 +44,9 @@ const ManageOrder = () => {
   const navigate = useNavigate();
   const [searchTour, setSearchTour] = useState([]);
   const [status, setStatus] = useState(true)
+
+  const [bookedTours, setBookedTours] = useState([]);
+  const [searchUser, setSearchNameUser] = useState([]);
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -77,23 +81,23 @@ const ManageOrder = () => {
 
   const headCells = [
     { id: 'id', label: 'ID', filterable: true },
-    { id: 'Tên', label: 'Tên', filterable: false },
-    { id: 'Chi phí', label: 'Chi phí', filterable: false },
-    { id: 'Số người', label: 'Số người', filterable: false },
+    { id: 'Name', label: 'Name', filterable: false },
+    { id: 'Amount', label: 'Amount', filterable: false },
+    { id: 'Number of people', label: 'Number of people', filterable: false},
     { id: 'Email', label: 'Email', filterable: false },
-    { id: 'Điện thoại', label: 'Điện thoại', filterable: false },
-    { id: 'Địa chỉ', label: 'Địa chỉ', filterable: false },
-    { id: 'Mã Tour', label: 'Mã Tour', filterable: false },
-    { id: 'Thời gian đặt', label: 'Thời gian đặt', filterable: false },
+    { id: 'Phone', label: 'Phone', filterable: false },
+    { id: 'Address', label: 'Address', filterable: false },
+    { id: 'Tour ID', label: 'Tour ID', filterable: false },
+    { id: 'Time booked', label: 'Time booked', filterable: false },
     {
       id: 'review-status',
-      label: 'Trạng thái thanh toán',
+      label: 'Payment Status',
       filterable: false,
       
     },
     {
       id: 'action-button',
-      label: 'Tác vụ',
+      label: 'Action',
       align: 'center',
       filterable: false,
     },
@@ -156,16 +160,46 @@ const ManageOrder = () => {
 
   useEffect(() => {
     console.log(searchTour);
-  }, [searchTour]);
+  }, []);
 
-  const [bookedTours, setBookedTours] = useState([]);
+
+  
+  // const [searchedUser, setSearchUser] = useState('');
+
+  // const [allBookedTours, setAllBookedTours] = useState([]); // Thêm state này
+  // const handleSearchChange = (e) => {
+  //   const value = e.target.value;
+  //   setSearchUser(value);
+  //   if (value === '') {
+  //     setBookedTours(allBookedTours); // Hiển thị lại dữ liệu ban đầu nếu không có giá trị tìm kiếm
+  //   }
+  // };
+
+  // const handleSubmitSearch = (e) => {
+  //   e.preventDefault();
+  //   if(searchedUser){
+  //     const searchedTour =  bookedTours.filter(bt => bt.user_id.username.toLowerCase().includes(searchedUser.toLowerCase()));
+  //     setBookedTours(searchedTour);
+  //   }else{
+  //     setBookedTours(allBookedTours);
+  //   }
+  // };
+
   useEffect(() => {
     // Hàm gọi API để lấy dữ liệu
     const fetchBookings = async () => {
         try {
             const response = await axios.get('http://localhost:8080/api/booking/all');
+
             if (response.data.success) {
-                setBookedTours(response.data.getAllTourBooked);
+                const bookedData = response.data.getAllTourBooked;
+                console.log('dataa', bookedData)
+                if(searchUser == ''){
+                  setBookedTours(bookedData);
+                }else{
+                  setBookedTours(bookedData.filter(b => b.user_id.username.toLowerCase().includes(searchUser.toLowerCase())));
+                }
+
             } else {
                 console.error('Failed to fetch bookings');
             }
@@ -175,7 +209,7 @@ const ManageOrder = () => {
     };
 
     fetchBookings();
-  }, []);
+  }, [searchUser]);
   console.log(bookedTours)
 
 // Function để xác nhận thanh toán
@@ -219,75 +253,49 @@ const handleConfirmPayment = async (bookingId) => {
       )}
 
       <div>
-        <section className="w-full bg-boat bg-cover bg-bottom bg-no-repeat h-[50vh] flex justify-center bg-color2 bg-blend-multiply bg-opacity-50">
-          <div className="w-full container flex justify-center items-center flex-col">
-            <p className="text-white text-3xl 2xl:text-6xl">
-              Quản lý đơn đặt từ người dùng
-            </p>
-          </div>
-        </section>
+      <section className="home">
+      <div className="secContainer container">
+        <div className="homeText">
+          <h1 data-aos="fade-up" className="title font-bold text-2xl">
+            Manage Booking
+          </h1>
+        </div>
+      </div>
+    </section>
 
         <Grid container style={{ marginBottom: '5rem' }}>
           <Grid item xs={12} sx={{ p: 6 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={9}>
+            {/* <Grid container spacing={2}> */}
+             
+              <Grid item xs={12}  style={{ textAlign: 'center' }}>
+                  <div
+                  className="relative flex items-center w-80 h-9 rounded-lg focus-within:shadow-lg bg-white overflow-hidden"
+                  style={{
+                    border: '1px solid lightgrey',
+                    boxShadow: '0px 1px 1px 1px rgba(0, 0, 0, 0.1)',
+                    height: '60px',
+                    borderRadius: '100px',
+                    margin:'10px'
+                  }}
+                >
+                  <div className="grid place-items-center h-full w-12 text-gray-300">
+                    <SearchIcon />
+                  </div>
+                  <input
+                    className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
+                    type="text"
+                    id="search"
+                    placeholder="Search user name.."
+                    onChange={(e) => setSearchNameUser(e.target.value)}
+                  />
+                  </div>
               </Grid>
-              <Grid item xs={3} style={{ textAlign: 'right' }}>
-                <div style={{ marginBottom: '1rem', textAlign: 'right' }}>
-                  <form className="max-w-sm" onSubmit={handleSubmit}>
-                    <label
-                      for="default-search"
-                      className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-                    >
-                      Tìm kiếm
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg
-                          className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                          />
-                        </svg>
-                      </div>
-                      <input
-                        style={{
-                          borderRadius: "70px"
-                        }}
-                        type="search"
-                        id="default-search"
-                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Tìm kiếm theo tên...."
-                        required
-                        onChange={(e) => { setSearchTour(e.target.value) }}
-                      />
-                      <button
-                        style={{
-                          borderRadius: "70px"
-                        }}
-                        type="submit"
-                        className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
-                        Tìm kiếm
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </Grid>
-            </Grid>
+            {/* </Grid> */}
+            
             <Card>
               <CardHeader
                 className="bg-slate-200 text-slate-400 font-bold"
-                title="Danh sách đơn đặt"
+                title="List booking tour"
                 titleTypographyProps={{ variant: 'h6', color: 'primary' }}
               />
               {status ? (
@@ -299,8 +307,8 @@ const handleConfirmPayment = async (bookingId) => {
                       }}
                       aria-label="card navigation example"
                     >
-                      <Tab value="1" label="Đơn đã thanh toán" />
-                      <Tab value="2" label="Đơn chưa thanh toán" />
+                      <Tab value="1" label="Paid Tour" />
+                      <Tab value="2" label="Unpaid Tour" />
                       {/* <Tab value="3" label="Đơn đã hủy" /> */}
                     </TabList>
                     <TabPanel value="1" sx={{ p: 0 }}>
@@ -414,7 +422,7 @@ const handleConfirmPayment = async (bookingId) => {
                                     <TableCell> Chưa thanh toán </TableCell>
                                     <TableCell align={'center'}>
                                     <button onClick={() => handleConfirmPayment(booked._id)} data-tooltip-target="tooltip-default" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Xác nhận thanh toán
+                                    Confirm payment
                                     </button>
                                     </TableCell>
                                   </TableRow>

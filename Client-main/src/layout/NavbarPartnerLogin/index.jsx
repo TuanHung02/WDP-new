@@ -173,7 +173,7 @@ const Index = () => {
                 className="navLink"
                 onClick={() => navigate('/manage-order')}
               >
-                Manage Order
+                Manage Booking
               </a>
             </li>
 

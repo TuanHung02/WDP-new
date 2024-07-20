@@ -39,7 +39,7 @@ import avatar from '../../images/avatar.jpg';
 import { Link } from 'react-router-dom';
 
 const menuItems = [
-  { text: 'Dashboard', link: '/dashboard' },
+  // { text: 'Dashboard', link: '/dashboard' },
   { text: 'User Manage', link: '/admin/user-manage' },
   // { text: 'Booking Manage', link: '/admin/booking-manage' },
   { text: 'Tour Manage', link: '/admin/tour-manage' },
@@ -198,7 +198,7 @@ const TourManage = () => {
         <Drawer variant="permanent" open={open}>
           <DrawerHeader className="relative">
             <div className="flex justify-center items-center gap-3">
-              <SiYourtraveldottv className="text-orange-400 text-2xl" />
+              <SiYourtraveldottv className="text-blue-400 text-2xl" />
               <span className="font-bold text-lg">                  Booking Chill
               </span>
             </div>

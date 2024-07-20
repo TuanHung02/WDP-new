@@ -172,19 +172,20 @@ export default function index() {
       ) : (
         <Navbar />
       )}
-      <section
-        className="w-full bg-boat bg-cover bg-bottom bg-no-repeat h-[50vh] flex justify-center bg-color2 bg-blend-multiply bg-opacity-50"
-        style={{ height: '70px' }}
-      >
-        <div className="w-full container flex justify-center items-center flex-col">
-          <p className="text-white font-secondary text-3xl 2xl:text-6xl"></p>
+      <section style={{height: '100px'}} className="home">
+      <div className="secContainer container">
+        <div className="homeText">
+          <h1 data-aos="fade-up" className="title font-bold text-2xl">
+            Profile
+          </h1>
         </div>
-      </section>
+      </div>
+    </section>
 
       <section>
         <div className="h-full overflow-x-hidden bg-gray-200 p-8">
           <div className="bg-white rounded-lg shadow-xl pb-8">
-            <div className="w-full h-[250px]">
+            <div className="w-full h-[100px]">
               <img
                 src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"
                 className="w-full h-full rounded-tl-lg rounded-tr-lg"

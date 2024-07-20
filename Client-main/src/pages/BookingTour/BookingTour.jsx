@@ -194,13 +194,15 @@ const BookingTour = () => {
         <Navbar />
       )}
 
-      <section className="w-full bg-boat bg-cover bg-bottom bg-no-repeat h-[50vh] flex justify-center bg-color2 bg-blend-multiply bg-opacity-50">
-        <div className="w-full container flex justify-center items-center flex-col">
-          <p className="text-white font-secondary text-3xl 2xl:text-6xl" style={{ fontStyle: "italic", color: "#fff" }}>
-            Wish you have an enjoyable experience !
-          </p>
+      <section className="home">
+      <div className="secContainer container">
+        <div className="homeText">
+          <h1 data-aos="fade-up" className="title font-bold text-2xl">
+            Wish you has an enjoyable experience!
+          </h1>
         </div>
-      </section>
+      </div>
+    </section>
       <Container
         style={{ padding: '2px', marginTop: '10px', marginBottom: '20px' }}
       >
@@ -471,7 +473,7 @@ const BookingTour = () => {
                   onChange={handleNumberPeopleChange}
                 />
 
-                <Typography
+                {/* <Typography
                   variant="h3"
                   sx={{
                     marginBottom: '33px',
@@ -536,7 +538,7 @@ const BookingTour = () => {
                       </Grid>
                     </Grid>
                   )}
-                </Grid>
+                </Grid> */}
                 <Grid
                   sx={{
                     textAlign: 'left',
@@ -700,7 +702,7 @@ const BookingTour = () => {
                   <Button
                     style={{
                       background:
-                        'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+                        'hsl(210, 100%, 50%)',
                       border: 0,
                       borderRadius: 10,
                       boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',

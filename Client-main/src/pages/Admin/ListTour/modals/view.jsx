@@ -43,62 +43,6 @@ import canada from '../../../../images/canada1.jpg';
 import map from '../../../../images/map.jpg';
 import france from '../../../../images/france1.jpg';
 
-const tour = [
-  {
-    id: 1,
-    imgSrc: img,
-    destTitle:
-      'Đông Bắc: Hà Nội - Hà Giang - Lũng Cú - Đồng Văn - Mã Pí Lèng - Mèo Vạc - Cao Bằng - Thác Bản Giốc - Hồ Ba Bể',
-    locations: [
-      {
-        location: 'SB NỘI BÀI – HÀ NỘI',
-        time: '31/01/2024',
-        details:
-          'Quý khách tập trung tại sân bay Tân Sơn Nhất (Ga nội địa), hướng dẫn viên hỗ trợ khách làm thủ tục đáp chuyến bay đi Hà Nội. Đến sân bay Nội Bài, xe và HDV Vietravel đón Quý khách đi Hà Nội nhận phòng khách sạn nghỉ ngơi hoặc tự do đi tham quan.',
-      },
-      {
-        location: 'HÀ NỘI - HÀ GIANG 01 bữa ăn: (Sáng)',
-        time: '01/02/2024',
-        details:
-          'Quý khách tập trung tại sân bay Tân Sơn Nhất (Ga nội địa), hướng dẫn viên hỗ trợ khách làm thủ tục đáp chuyến bay đi Hà Nội. Đến sân bay Nội Bài, xe và HDV Vietravel đón Quý khách đi Hà Nội nhận phòng khách sạn nghỉ ngơi hoặc tự do đi tham quan.',
-      },
-      {
-        location: 'HÀ GIANG - QUẢN BẠ - YÊN MINH – ĐỒNG VĂN 01 bữa ăn: (Sáng)',
-        time: '02/02/2024',
-        details:
-          'Quý khách tập trung tại sân bay Tân Sơn Nhất (Ga nội địa), hướng dẫn viên hỗ trợ khách làm thủ tục đáp chuyến bay đi Hà Nội. Đến sân bay Nội Bài, xe và HDV Vietravel đón Quý khách đi Hà Nội nhận phòng khách sạn nghỉ ngơi hoặc tự do đi tham quan.',
-      },
-      {
-        location: 'ĐỒNG VĂN – MÈO VẠC – CAO BẰNG 01 bữa ăn: (Sáng)',
-        time: '03/02/2024',
-        details:
-          'Quý khách tập trung tại sân bay Tân Sơn Nhất (Ga nội địa), hướng dẫn viên hỗ trợ khách làm thủ tục đáp chuyến bay đi Hà Nội. Đến sân bay Nội Bài, xe và HDV Vietravel đón Quý khách đi Hà Nội nhận phòng khách sạn nghỉ ngơi hoặc tự do đi tham quan.',
-      },
-      {
-        location:
-          'THÁC BẢN GIỐC – ĐỘNG NGƯỜM NGAO – LÀNG ĐÁ KHUỔI KY 01 bữa ăn: (Sáng)',
-        time: '0/042/2024',
-        details:
-          'Quý khách tập trung tại sân bay Tân Sơn Nhất (Ga nội địa), hướng dẫn viên hỗ trợ khách làm thủ tục đáp chuyến bay đi Hà Nội. Đến sân bay Nội Bài, xe và HDV Vietravel đón Quý khách đi Hà Nội nhận phòng khách sạn nghỉ ngơi hoặc tự do đi tham quan.',
-      },
-      {
-        location: 'CAO BẰNG – KHU DI TÍCH PÁC PÓ – BA BỂ 01 bữa ăn: (Sáng)',
-        time: '04/02/2024',
-        details:
-          'Quý khách tập trung tại sân bay Tân Sơn Nhất (Ga nội địa), hướng dẫn viên hỗ trợ khách làm thủ tục đáp chuyến bay đi Hà Nội. Đến sân bay Nội Bài, xe và HDV Vietravel đón Quý khách đi Hà Nội nhận phòng khách sạn nghỉ ngơi hoặc tự do đi tham quan.',
-      },
-      {
-        location: 'BA BỂ - BẮC CẠN – HÀ NỘI – SB NỘI BÀI 01 bữa ăn: (Sáng)',
-        time: '04/02/2024',
-        details:
-          'Quý khách tập trung tại sân bay Tân Sơn Nhất (Ga nội địa), hướng dẫn viên hỗ trợ khách làm thủ tục đáp chuyến bay đi Hà Nội. Đến sân bay Nội Bài, xe và HDV Vietravel đón Quý khách đi Hà Nội nhận phòng khách sạn nghỉ ngơi hoặc tự do đi tham quan.',
-      },
-    ],
-    panoramaImages: [img, img, img],
-    price: '720000',
-    Time: '2 ngày 1 đêm',
-  },
-];
 
 const itemData = [
   {
@@ -142,7 +86,6 @@ const View = ({ row, openModal, setOpenModal, rowID }) => {
   const [points, setTours] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [tourData, setTourData] = useState([]);
-
   const allTourLength = allPoints.length;
 
   const handleToggle = () => {
@@ -160,20 +103,17 @@ const View = ({ row, openModal, setOpenModal, rowID }) => {
 
   const { id } = useParams();
 
-//   useEffect(() => {
-//     const tourItems = () => {
-//       axios
-//         .get(`http://localhost:8080/api/tour/${id}`)
-//         .then((response) => {
-//           const toursData = response.data.tour.tour;
-//           setTourData(toursData);
-//           console.log('data tour:', tourData);
-//         })
-//         .catch((error) => console.log(error));
-//     };
-
-//     tourItems();
-//   }, [id]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/tour/${rowID}`)
+      .then((response) => {
+        const tours = Object.values(response.data.tour);
+        setTourData(tours);
+        console.log(tours);
+        console.log(id);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   useEffect(() => {
     if (row && row._id) {
@@ -247,7 +187,7 @@ const View = ({ row, openModal, setOpenModal, rowID }) => {
                       </Typography>
                       <Typography variant="body1">
                         Thời gian:{' '}
-                        {moment(tourItem?.start_date).format('DD/MM/YYYY')}
+                        {tourItem?.duration} Days {tourItem?.duration -1} Night 
                       </Typography>
                     </Grid>
                   </Grid>
@@ -264,133 +204,41 @@ const View = ({ row, openModal, setOpenModal, rowID }) => {
                       textAlign: 'center',
                     }}
                   >
-                    Detail Schedule
+                    Detail tour
                   </Typography>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} sm={5} sx={{ textAlign: 'left' }}>
-                      <Card elevation={3}>
-                        <CardContent>
-                          <Timeline
-                            sx={(theme) => ({
-                              m: 0,
-                              pl: 0,
-                              pr: 0,
-                              [`& .${timelineItemClasses.root}`]: {
-                                minHeight: theme.spacing(6),
-                                '&:before': {
-                                  flex: 0,
-                                  padding: 0,
-                                },
-                              },
-                            })}
-                          >
-                            {schedule?.map((schedule, index) => {
-                              const isPrimaryPoint =
-                                index === 0 || index === schedule?.length - 1;
-                              const isStart = index === 0;
-                              const isEnd = index === schedule?.length - 1;
+                  <Grid item xs={12} sm={8}>
+                  <Card>
+                  <div className="slide-container">
+                  <img src={tourData[0]?.tour_img}></img>
+                  </div>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} sm={4} >
+                  <Card style={{width: '100%'}} >
+                  <div  className="tour-info panel hidden-xs">
 
-                              return (
-                                <React.Fragment key={schedule?._id}>
-                                  <TimelineItem>
-                                    <TimelineSeparator>
-                                      <TimelineDot
-                                        color={
-                                          index === 0
-                                            ? 'success'
-                                            : index === schedule?.length - 1
-                                            ? 'error'
-                                            : 'primary'
-                                        }
-                                      ></TimelineDot>
-                                      {!isEnd && <TimelineConnector />}
-                                    </TimelineSeparator>
-                                    <TimelineContent
-                                      sx={{
-                                        fontWeight: isPrimaryPoint
-                                          ? 'bold'
-                                          : undefined,
-                                      }}
-                                    >
-                                      <Typography variant="body1">
-                                        {schedule?.schedule_name}
-                                      </Typography>
-                                      <Typography
-                                        variant="body2"
-                                        color="textSecondary"
-                                      >
-                                        {new Date(
-                                          schedule?.schedule_date
-                                        ).toLocaleDateString('en-US', {
-                                          year: 'numeric',
-                                          month: 'long',
-                                          day: 'numeric',
-                                        })}
-                                      </Typography>
-                                    </TimelineContent>
-                                  </TimelineItem>
-                                  {isStart && allTourLength > 2 && (
-                                    <Button
-                                      sx={{
-                                        textTransform: 'none',
-                                        // justifyContent: "flex-start"
-                                      }}
-                                      onClick={handleToggle}
-                                      endIcon={
-                                        open ? (
-                                          <ExpandLessIcon />
-                                        ) : (
-                                          <ExpandMoreIcon />
-                                        )
-                                      }
-                                    >
-                                      {open
-                                        ? 'Thu gọn'
-                                        : `Chi tiết hành trình (+${
-                                            allTourLength - 2
-                                          } chặng)`}
-                                    </Button>
-                                  )}
-                                </React.Fragment>
-                              );
-                            })}
-                          </Timeline>
-                        </CardContent>
-                      </Card>
-                      <Box
-                        display="flex"
-                        justifyContent="flex-start"
-                        alignItems="flex-start"
-                        marginTop="10px"
-                      >
-                        <img
-                          src={tourData?.tour_img}
-                          alt="Tour photo description"
-                        />
-                      </Box>
-                      <Box
-                        sx={{
-                          width: 500,
-                          height: 450,
-                          overflowY: 'scroll',
-                          marginTop: '20px',
-                        }}
-                      >
-                        <ImageList variant="masonry" cols={3} gap={8}>
-                          {itemData.map((item) => (
-                            <ImageListItem key={item?.img}>
-                              <img
-                                srcSet={`${item?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                src={`${item?.img}?w=248&fit=crop&auto=format`}
-                                alt={item?.title}
-                                loading="lazy"
-                              />
-                            </ImageListItem>
-                          ))}
-                        </ImageList>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} sm={7} sx={{ textAlign: 'left' }}>
+                    <div style={{border:'1px solid blue',borderRadius:'5px', padding: '10px', color:'white', background:'hsl(210, 100%, 50%)'}}  className="panel-heading">TOUR INFORMATION</div>
+
+                    <div style={{padding: '10px'}} className="panel-body">
+                    <p>Tour ID: <strong>{tourData[0]?._id}</strong></p>
+                    <p>Max tourist: <strong>{tourData[0]?.max_tourist}</strong></p>
+                    <p>Transportion: <strong>{tourData[0]?.tour_transportion[0]?.transportion_name}</strong></p>
+                    <p><span>Start position: <strong>{tourData[0]?.start_position?.location_name}</strong></span> </p>
+                    <p><span>End position: <strong>{tourData[0]?.end_position[0]?.location_name}</strong></span> </p>
+                    <p><span>Start date: <strong>{moment(tourData[0]?.start_date).format("DD/MM/YYYY")}</strong></span> </p>
+                    </div> 
+
+                    <div style={{padding: '10px'}} className="panel-footer">
+                    <a href="tel:1900 6668">
+                    <i className="fa fa-phone"></i>Contact: 0976055102</a>
+                    </div>
+
+                  </div>
+                  </Card>
+                </Grid>
+                   
+                    <Grid item xs={12} sm={12} sx={{ textAlign: 'left' }}>
                       <Card>
                         <CardContent>
                           {schedule?.map((data, index) => (
